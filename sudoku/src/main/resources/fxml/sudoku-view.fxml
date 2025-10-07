@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.sudoku.controller.SudokuController">
+
+    <center>
+        <GridPane fx:id="grid" hgap="5" vgap="5" style="-fx-padding: 20;" />
+    </center>
+
+    <bottom>
+        <Button text="Iniciar Juego" fx:id="btnStart" BorderPane.alignment="CENTER" />
+    </bottom>
+</BorderPane>
