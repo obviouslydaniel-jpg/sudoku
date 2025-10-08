@@ -8,24 +8,41 @@ import javafx.scene.control.Button;
 public class SudokuController {
 
     @FXML
-    private GridPane gridSudoku;
+    private GridPane sudokuContainer;
 
     @FXML
     private Button btnStart;
 
+    private GridPane bloques(){
+        GridPane gp= new GridPane();
+        gp.getStyleClass().add("bloque");
+        return gp;
+    }
+
+    private TextField campoTexto(){
+        TextField tf = new TextField();
+        return tf;
+    }
+
     @FXML
     public void initialize() {
-        int size =6 ; //tamaño del tablero
+    System.out.println("hola");
+        for (int fila = 0; fila < 3; fila ++) {
 
-        for (int fila = 0; fila < size; fila ++) {
+            for (int columna=0; columna <2; columna++){ //dos bucles anidados que recorren las filas y las columnas generando las 36 celdas
 
-            for (int columna=0; columna <size; columna++){ //dos bucles anidados que recorren las filas y las columnas generando las 36 celdas
+                GridPane gp = bloques();
+                sudokuContainer.add(gp, columna, fila);
 
-                TextField casilla = new TextField();
-                casilla.setPrefWidth(40);
-                casilla.setPrefHeight(40);
-                gridSudoku.add(casilla, columna, fila);
 
+                for (int row = 0; row<2; row++){
+
+                    for (int column=0; column<3; column++){
+
+                        TextField tf = campoTexto();
+                        gp.add(tf, column, row);
+                    }
+                }
 
             }
         }

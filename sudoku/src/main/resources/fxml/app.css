@@ -1,0 +1,9 @@
+.contenedorPadre{
+    -fx-alignment: center ;
+}
+
+.bloque{
+    -fx-alignment: center;
+    -fx-border-color: red;
+    -fx-border-width: 1 ;
+}
