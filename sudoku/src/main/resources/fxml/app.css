@@ -1,9 +1,18 @@
 .contenedorPadre{
     -fx-alignment: center ;
+    -fx-padding: 0;
 }
 
 .bloque{
     -fx-alignment: center;
-    -fx-border-color: red;
+    -fx-border-color: black;
     -fx-border-width: 1 ;
+    -fx-padding: 0;
+
 }
+
+.text-field{
+    -fx-padding: 0;
+    -fx-alignment: center;
+}
+
