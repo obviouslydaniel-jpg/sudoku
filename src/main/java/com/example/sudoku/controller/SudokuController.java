@@ -77,6 +77,8 @@ public class SudokuController {
                     for (int column=0; column<3; column++){
 
                         TextField tf = campoTexto();
+
+                        tf.setUserData(new int []{fila*2 +row, columna*3 + column});
                         gp.add(tf, column, row);
                     }
                 }
