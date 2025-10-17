@@ -1,11 +1,12 @@
 package com.example.sudoku.controller;
 
+import com.example.sudoku.model.Tablero;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Button;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -35,8 +36,22 @@ public class SudokuController {
         tf.setMinSize(60, 60);
         tf.setMaxSize(60, 60);
         tf.setAlignment(Pos.CENTER);
+
+        // Limitar a solo 1 número del 1 al 6
+        tf.setTextFormatter(new TextFormatter<>(c -> {
+            if (c.getControlNewText().isEmpty()) {
+                return c; // permitir borrar
+            }
+            // permitir solo un dígito entre 1 y 6
+            if (c.getControlNewText().matches("[1-6]")) {
+                return c;
+            }
+            return null; // rechazartodo lo demas
+        }));
+
         return tf;
-    }
+
+        }
 
     @FXML
     public void initialize() {
@@ -61,12 +76,40 @@ public class SudokuController {
             }
         });
     }
+
+    private TextField crearCampoTexto() {
+        TextField tf = new TextField();
+        tf.setPrefSize(60, 60);
+        tf.setAlignment(Pos.CENTER);
+
+        tf.setOnKeyTyped(event ->{
+            String character = event.getCharacter();
+
+            if (character.equals("\b")) return;
+
+            if (!character.matches("[1-6]")){
+                event.consume();
+                return;
+            }
+            if (tf.getText().length()>=1 ){
+                event.consume();
+            }
+        });
+        return tf;
+    }
+
+
     //metodo q genera el tablero de 6x6
     private void generarTablero(){
-        sudokuContainer.getChildren().clear();//limpia el gridpane antes de generar
-        for (int fila = 0; fila < 3; fila ++) {
 
-            for (int columna=0; columna <2; columna++){ //dos bucles anidados que recorren las filas y las columnas generando las 36 celdas
+        Tablero tablero=new Tablero();
+        tablero.generarNuevoTablero();
+
+        sudokuContainer.getChildren().clear();//limpia el gridpane antes de generar
+
+        for (int fila = 0; fila < 3; fila ++) { //generar 3 filas de bloques
+            //generar 2 columnas de bloques
+            for (int columna=0; columna <2; columna++){
 
                 GridPane gp = bloques();
                 sudokuContainer.add(gp, columna, fila);
@@ -78,7 +121,17 @@ public class SudokuController {
 
                         TextField tf = campoTexto();
 
-                        tf.setUserData(new int []{fila*2 +row, columna*3 + column});
+                        int filaReal=fila* 2 + row ;
+                        int columnaReal = columna*3+column;
+
+                        int valor = tablero.getNumero(filaReal, columnaReal);
+
+                        if (valor!=0){
+                            tf.setText(String.valueOf(valor));
+                            tf.setDisable(true);
+                        }
+
+
                         gp.add(tf, column, row);
                     }
                 }
