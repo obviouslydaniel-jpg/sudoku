@@ -9,9 +9,9 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("/fxml/sudoku-view.fxml"));
+        FXMLLoader fxmlLoader =new FXMLLoader(MainApp.class.getResource("/fxml/sudoku-view.fxml"));
 
-        Scene scene = new Scene(fxmlLoader.load(), 700, 500);
+        Scene scene =new Scene(fxmlLoader.load(), 700, 500);
         stage.setTitle("Sudoku 6x6");
         stage.setScene(scene);
         stage.show();
